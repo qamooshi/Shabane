@@ -5,11 +5,11 @@
 const videos = {
     intro: { src:"videos/intro.mp4", loop:"videos/intro-loop.mp4", choices:[{text:"بزن بیرون", next:"goout"},{text:"برو به یخچال", next:"yakhchal"}]},
     goout: { src:"videos/goout.mp4", loop:"videos/goout-loop.mp4", choices:[{text:"کمکش کن", next:"help"},{text:"بیخیال شو", next:"noway"}]},
-    noway: { src:"videos/noway.mp4", loop:null, choices:[{text:"شروع دوباره", next:"intro"},{text:"برگرد و کمکش کن", next:"BackHelp"}]},
+    noway: { src:"videos/noway.mp4", loop:null, choices:[{text:"شروع دوباره", next:"intro"},{text:"برگرد و کمکش کن", next:"backhelp"}]},
     help: { src:"videos/help.mp4", loop:"videos/help-loop.mp4", choices:[{text:"از کفگیر کمک بگیر", next:"nejat"},{text:"قابلمه رو خالی کن تو سینک", next:"ghablame"}]},
     nejat: { src:"videos/nejat.mp4", loop:"videos/nejat-loop.mp4", choices:[{text:"برو به تراس", next:"gosleep"},{text:"تخم مرغ رو بخور", next:"eatit"}]},
-    gosleep: { src:"videos/gosleep.mp4",loop:null, choices:[{text:"شروع دوباره", next:"intro"},{text:"برگرد و تخم مرغ رو بخور", next:"BackEatit"}]},
-    eatit: { src:"videos/eatit.mp4",loop:null, choices:[{text:"شروع دوباره", next:"intro"},{text:"برگرد و برو به تراس", next:"BackGosleep"}]},
+    gosleep: { src:"videos/gosleep.mp4",loop:null, choices:[{text:"شروع دوباره", next:"intro"},{text:"برگرد و تخم مرغ رو بخور", next:"backeatit"}]},
+    eatit: { src:"videos/eatit.mp4",loop:null, choices:[{text:"شروع دوباره", next:"intro"},{text:"برگرد و برو به تراس", next:"backgosleep"}]},
     ghablame: { src:"videos/ghablame.mp4",loop:"videos/help-loop.mp4", choices:[{text:"از کفگیر کمک بگیر", next:"nejat"},{text:"قابلمه رو خالی کن تو سینک", next:"ghablame"}]},
     yakhchal: { src:"videos/yakhchal.mp4", loop:"videos/yakhchal-loop.mp4", choices:[{text:"کاغذ", next:"kaghaz"},{text:"قیچی", next:"gheychi"},{text:"سنگ", next:"sang"}]},
     sang: { src:"videos/sang.mp4", loop:"videos/sang-loop.mp4", choices:[{text:"در یخچالو ببند", next:"goiphonesang"},{text:"برگرد پایین جلو در", next:"s0"}]},
@@ -28,9 +28,9 @@ const videos = {
     showgheychi: { src:"videos/showgheychi.mp4", loop:null, choices:[{text:"شروع دوباره", next:"intro"},{text:"برگرد به یخچال", next:"yakhchalend"}]},
     showkaghaz: { src:"videos/showkaghaz.mp4", loop:null, choices:[{text:"شروع دوباره", next:"intro"},{text:"برگرد به یخچال", next:"yakhchalend"}]},
     yakhchalend: {src:"videos/yakhchalend.mp4", loop:"videos/yakhchal-loop.mp4", choices:[{text:"کاغذ", next:"kaghaz"},{text:"قیچی", next:"gheychi"},{text:"سنگ", next:"sang"}]},
-    BackHelp: { src:"videos/BackHelp.mp4", loop:"videos/help-loop.mp4", choices:[{text:"از کفگیر کمک بگیر", next:"nejat"},{text:"قابلمه رو خالی کن تو سینک", next:"ghablame"}]},
-    BackEatit: { src:"videos/BackEatit.mp4",loop:null, choices:[{text:"شروع دوباره", next:"intro"}]},
-    BackGosleep: { src:"videos/BackGosleep.mp4",loop:null, choices:[{text:"شروع دوباره", next:"intro"}]}
+    backhelp: { src:"videos/backhelp.mp4", loop:"videos/help-loop.mp4", choices:[{text:"از کفگیر کمک بگیر", next:"nejat"},{text:"قابلمه رو خالی کن تو سینک", next:"ghablame"}]},
+    backeatit: { src:"videos/backeatit.mp4",loop:null, choices:[{text:"شروع دوباره", next:"intro"}]},
+    backgosleep: { src:"videos/backgosleep.mp4",loop:null, choices:[{text:"شروع دوباره", next:"intro"}]}
 };
 
 /* ----------- DOM elements ----------- */
