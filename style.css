@@ -1,0 +1,311 @@
+
+  CSS کامل (حفظ استایل‌های قبلی)
+   ======================= */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* دکمه‌ها و اجزای متنی */
+@font-face {
+  font-family: 'RooyinFreeFaNum-Regular';
+  src: url('fonts/RooyinFreeFaNum-Regular.ttf') format('truetype');
+}
+
+
+/* ---------- Loading screen (اول نمایش داده می‌شود) ---------- */
+#loading-screen {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  color: #fff;
+}
+#loadingBox {
+  width: clamp(75px, 25vw, 150px);
+  padding: 22px;
+  background: rgba(0,0,0,1);
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  
+}
+#loadingTitle { font-size: 10px; font-weight:500; margin-top:20px; color:#797165; opacity:0;}
+#loadingText { font-size: 8px;font-weight:600;font-family: 'RooyinFreeFaNum-Regular', monospace; color:#C9C9C9; margin-bottom:-36px; opacity:0;}
+#progressBar { width:100%; height:16px; background: rgba(255,255,255,0.08); border-radius:1px; overflow:hidden; border:1px solid #BDBDBD; }
+#progressFill { width:0%; height:100%; background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,1)); transition: width 400ms linear; }
+#loadingDetail { margin-top:10px; font-size:13px; color:#ccc; opacity:0; }
+
+
+/* ---------- Start screen ---------- */
+#start-screen {
+  width: 100%;
+  height: 100vh;
+  display: none; /* بعد از لود اولیه نمایش داده میشه */
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  z-index: 20;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 5000ms ease;
+}
+#start-screen.show { display:flex; }
+#startBg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 2s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+#fadeOverlay {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2000ms ease 0.5s;
+  z-index: 30;
+}
+
+#start-btn {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  font-size: 22px;
+  font-weight: bold;
+  width: 220px;
+  max-width: 90%;
+  padding: 14px 0;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: 'RooyinFreeFaNum-Regular', monospace;
+
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 3000ms cubic-bezier(.2,.9,.3,1);
+  opacity: 0;
+  transition-delay: 1s;
+  pointer-events: none;
+  text-align: center;
+
+  /* 🎛️ ظاهر جدید رترو */
+  background: linear-gradient(180deg, #35322e 0%, #2d2a26 100%);
+  color: #f2f0e9;
+  filter: contrast(85%) brightness(1.1) saturate(90%) blur(0.35px);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0, rgba(0,0,0,0.08) 2px),
+    url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+  background-blend-mode: overlay;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.7), inset 0 0 4px rgba(255,255,255,0.1);
+  
+}
+
+/* فید این */
+#start-btn.visible {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+  pointer-events: auto;
+}
+
+/* حالت انتخاب‌شده */
+#start-btn.selected {
+  transform: translate(-50%) translateY(1px);
+  transition: all 0.25s ease;
+filter: brightness(3.5);
+box-shadow: 0 0 8px rgba(255,255,255,0.15), inset 0 0 6px rgba(255,255,255,0.1);
+}
+
+
+
+
+/* ---------- Player (همان ساختار کامل) ---------- */
+#player {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+#video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+#video-container video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+#loopVideo { z-index: 4; opacity: 0; }
+
+@media (min-width: 1024px) {
+  #video-container video,
+  #startBg {
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    background-color: transparent;
+  }
+}
+
+/* choices */
+#choices {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 12;
+  pointer-events: auto;
+  width: 75%;      /* قبلاً width نداشت یا کمتر بود */
+   max-width: 450px; /* یا هر مقداری که روی موبایل و دسکتاپ خوب باشه */
+   justify-content: center; /* دکمه‌ها وسط کانتینر بمونن */
+}
+.choice-btn {
+  background: linear-gradient(180deg, #35322e 0%, #2d2a26 100%);
+  color: rgba(255, 255, 255, 0.6);
+  filter: contrast(85%) brightness(1.1) saturate(90%) blur(0.65px);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.1) 0, rgba(0,0,0,0.1) 2px),
+    url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+  background-blend-mode: overlay;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.7), inset 0 0 4px rgba(255,255,255,0.1);
+  font-size: 18px;
+  font-weight: bold;
+  padding: 6px 12px;
+  
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: 'RooyinFreeFaNum-Regular', monospace;
+ 
+  transition: all 0.15s ease;
+}
+
+
+.hidden { display: none !important; }
+.choice-btn.hide { opacity: 0; transform: translateY(2px); transition: all 0.4s ease; }
+.choice-btn.selected { animation: selectEffect 0.15s ease forwards; }
+@keyframes selectEffect {
+  0% {
+    background-color: rgba(255, 255, 255, 0.1); /* شفافیت اولیه */
+    color: rgba(255, 255, 255, 0.6);
+    transform: translateY(0);
+  }
+  100% {
+    background-color: rgba(255, 255, 255, 0.2); /* کمی پررنگ‌تر ولی هنوز شفاف */
+    color: rgba(255, 255, 255, 0.6);
+    transform: translateY(2px);
+  }
+}
+
+.choice-btn.red-glow {
+  box-shadow: inset 0 0 20px rgba(255, 0, 0, 0.5); /* نور قرمز از داخل */
+  background-color: rgba(60, 30, 30, 0.2); /* کمی ته‌مایه قرمز در پس‌زمینه */
+  transition: box-shadow 0.3s ease;
+}
+
+
+/* overlay text */
+#overlayText {
+  position: absolute;
+  bottom: 520px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 28px;
+  font-weight: 800;
+  background: rgba(0,0,0,0);
+  padding: 8px 16px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  max-width: 80%;
+  text-align: center;
+  z-index: 12;
+}
+#overlayText.show { opacity: 1; }
+
+/* inventory */
+#inventoryBtn {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px 25px;
+  background-color: #212E59;
+  color: #ffcc66;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: 'RooyinFreeFaNum-Regular', monospace;
+  display: none;
+  z-index: 15;
+  transition: all 0.1s ease;
+}
+#inventoryBtn:hover, #inventoryBtn:active { transform: translate(-50%, -48%); background-color: #1f1f1f; color: #ffe599; }
+
+/* inventory modal */
+#inventoryModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 20; }
+.pocket-container{ position: relative; width: clamp(280px, 40vw, 300px); margin: 0 auto; display: block; aspect-ratio: 1 / 1; }
+#pocketImg{ position: absolute; top: 40%; left: 0; width: 100%; height: 100%; object-fit: contain; z-index: 3; pointer-events: none; }
+@keyframes floatRotateItem { 0%   { transform: translateX(-50%) translateY(0) rotate(0deg); } 25%  { transform: translateX(-50%) translateY(-2px) rotate(-3deg); } 50%  { transform: translateX(-50%) translateY(-4px) rotate(2deg); } 75%  { transform: translateX(-50%) translateY(-2px) rotate(-1deg); } 100% { transform: translateX(-50%) translateY(0) rotate(0deg); } }
+#itemInPocket{ position: absolute; left: 50%; bottom: 10%; transform: translateX(-50%); width: 120%; height: auto; z-index: 1; cursor: pointer; animation: floatRotateItem 2s ease-in-out infinite; -webkit-clip-path: inset(0 0 30% 0); clip-path: inset(0 0 30% 0); max-width: none; }
+@media (max-width: 360px) { .pocket-container { width: clamp(240px, 78vw, 280px); } #itemInPocket { bottom: 12%; width: 125%; } }
+body { overflow-x: hidden; }
+
+.restart-btn { background-color: rgba(10,10,10,1); color: #cccccc; font-weight: 600; display: flex; align-items: center; gap: 8px; padding: 10px 20px; cursor: pointer; transition: all 0.3s ease; gap: 8px; }
+
+.restart-btn svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  stroke: #cccccc;
+  transition: stroke 0.2s;
+}
+
+.restart-btn:hover { background-color: rgba(180,180,180,1); color: black; }
+.restart-btn:hover svg {
+  stroke: black; /* رنگ آیکون هنگام هاور */
+}
+
+
+/* کمک به اجرای روان‌تر انیمیشن در موبایل */
+.choice-btn {
+  will-change: transform, opacity;
+  -webkit-tap-highlight-color: transparent;
+}
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- CRITICAL INLINE STYLES: show loader asap -->
+<style>
+  /* خیلی کم — فقط برای اولین paint */
+  html,body{height:100%;margin:0;padding:0;background:#000;overflow:hidden}
+  #loading-screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#000;color:#fff;z-index:99999}
+  #loadingBox{padding:18px;border-radius:10px;background:rgba(0,0,0,1);color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+</style>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>فیلم تعاملی POV — کامل</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script defer src="main.js"></script>
+</head>
+<body>
+
+<!-- ================= Loading screen (صفحهٔ قبل از start) ================= -->
+<div id="loading-screen" role="dialog" aria-label="در حال دانلود ویدیوها">
+  <div id="loadingBox">
+    <div id="loadingTitle">Loading...</div>
+    <div id="loadingText">...بارگذاری</div>
+    <div id="progressBar"><div id="progressFill"></div></div>
+    <div id="loadingDetail">در حال شروع...</div>
+    <div style="display:flex;justify-content:center;"></div>
+  </div>
+</div>
+
+<!-- ================= Start screen ================= -->
+<div id="start-screen">
+  <video id="startBg" playsinline webkit-playsinline muted></video>
+  <div id="fadeOverlay"></div>
+  <button id="start-btn" style="padding:15px 30px; font-size:28px; cursor:pointer;" disabled>شروع</button>
+</div>
+
+<!-- ================= Player (main) ================= -->
+<div id="player">
+  <div id="video-container">
+    <video id="videoPlayer1" playsinline webkit-playsinline></video>
+    <video id="videoPlayer2" playsinline webkit-playsinline style="opacity:0;"></video>
+    <video id="loopVideo" playsinline webkit-playsinline style="opacity:0;"></video>
+    <div id="choices" class="hidden"></div>
+    <div id="question" class="hidden">آیا می‌خواهی تلویزیون را روشن کنی؟</div>
+  </div>
+</div>
+
+<button id="inventoryBtn">جیب</button>
+
+<!-- inventory modal -->
+<div id="inventoryModal" style="display:none;">
+  <div style="display:flex; justify-content:center; align-items:center;">
+    <div class="pocket-container">
+      <img id="pocketImg" src="images/pocket.png" alt="pocket">
+      <img id="itemInPocket" src="" alt="item">
+    </div>
+  </div>
+</div>
+
+<div id="overlayText"></div>
+
+</body>
+</html>
